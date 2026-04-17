@@ -167,13 +167,15 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   .career-timeline {
     position: relative;
     height: 180px;
-    padding: 0 80px;
+    padding: 0 96px;
   }
+  /* Axis spans the full usable track width so stop --x values at 0–100%
+     map cleanly onto the line. The arrow overhangs the right edge. */
   .ct-axis {
     position: absolute;
     top: 50%;
-    left: 80px;
-    right: 100px;
+    left: 0;
+    right: 14px;
     height: 1px;
     background: var(--border-strong);
     transform: translateY(-50%);
@@ -182,7 +184,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
     content: "";
     position: absolute;
     top: 50%;
-    right: -12px;
+    right: -14px;
     transform: translateY(-50%);
     width: 0; height: 0;
     border-top: 4px solid transparent;
