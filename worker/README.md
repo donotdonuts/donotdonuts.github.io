@@ -25,7 +25,7 @@ exposing your API key in the browser.
    (Free account is fine. Workers free tier = 100k requests/day.)
 
 3. **Get a DeepSeek API key** from https://platform.deepseek.com/ → API keys.
-
+      
 4. **Enter this folder**:
    ```bash
    cd worker
