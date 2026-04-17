@@ -1,0 +1,10 @@
+name = "leon-chat"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+ALLOWED_ORIGIN = "https://donotdonuts.github.io"
+MODEL = "deepseek-chat"
+
+# DEEPSEEK_API_KEY is a secret — set it with:
+#   wrangler secret put DEEPSEEK_API_KEY
