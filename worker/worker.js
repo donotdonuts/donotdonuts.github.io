@@ -63,6 +63,36 @@ const SYSTEM_PROMPT = `You are a friendly, concise AI assistant embedded on Leon
 const MAX_MESSAGES = 20;
 const MAX_CONTENT_LEN = 2000;
 
+// ---- Rate limiting (per IP, in-memory per isolate) ----
+// Best-effort: Workers may run multiple isolates, so this won't coordinate
+// globally, but it's plenty for a personal site. For stricter enforcement
+// use Cloudflare's Rate Limiting binding or a KV-backed sliding window.
+const RATE_LIMIT_MAX = 10;           // max messages...
+const RATE_LIMIT_WINDOW_MS = 60_000; // ...per 60 seconds
+const rateBuckets = new Map();       // ip -> [timestamp, ...]
+
+function checkRateLimit(ip) {
+  const now = Date.now();
+  const prev = rateBuckets.get(ip) || [];
+  const recent = prev.filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
+  if (recent.length >= RATE_LIMIT_MAX) {
+    const oldest = recent[0];
+    const retryAfter = Math.max(1, Math.ceil((oldest + RATE_LIMIT_WINDOW_MS - now) / 1000));
+    return { ok: false, retryAfter };
+  }
+  recent.push(now);
+  rateBuckets.set(ip, recent);
+  // Occasional housekeeping
+  if (Math.random() < 0.02) {
+    for (const [key, times] of rateBuckets) {
+      if (!times.some((t) => now - t < RATE_LIMIT_WINDOW_MS)) {
+        rateBuckets.delete(key);
+      }
+    }
+  }
+  return { ok: true };
+}
+
 function cors(origin, allowed) {
   const list = String(allowed || "*")
     .split(",")
@@ -103,6 +133,24 @@ export default {
 
     if (request.method !== "POST") {
       return json({ error: "method_not_allowed" }, { status: 405 }, corsHeaders);
+    }
+
+    // Rate limit before touching the upstream API
+    const clientIP =
+      request.headers.get("cf-connecting-ip") ||
+      request.headers.get("x-forwarded-for") ||
+      "anon";
+    const rate = checkRateLimit(clientIP);
+    if (!rate.ok) {
+      return json(
+        {
+          error: "rate_limited",
+          message: `Too many messages — please wait ~${rate.retryAfter}s.`,
+          retryAfter: rate.retryAfter,
+        },
+        { status: 429, headers: { "Retry-After": String(rate.retryAfter) } },
+        corsHeaders
+      );
     }
 
     if (!env.DEEPSEEK_API_KEY) {
