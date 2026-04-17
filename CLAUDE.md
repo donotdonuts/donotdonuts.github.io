@@ -47,7 +47,12 @@ index.html  →  js/chatbot.js  →  fetch(SITE_CONFIG.chatWorkerUrl)
                              └─ POST to api.deepseek.com → { reply }
 ```
 
-The Worker's `SYSTEM_PROMPT` constant (top of `worker.js`) IS the knowledge base. Editing Leon's resume/bio = edit that string + `wrangler deploy`. No database, no KV.
+The Worker's `SYSTEM_PROMPT` constant (top of `worker.js`) IS the knowledge base. Editing Leon's resume/bio = edit that string + `wrangler deploy`. No database, no KV. The system prompt also establishes the bot's identity as **"Pot" 🫖** — a tea-themed persona; keep that voice in any prompt tweaks.
+
+### Chatbot rendering
+- Bot's avatar is the 🫖 emoji on a black `--ink` circle (`.chat-avatar`). Initial greeting is inline HTML (not a fetch) so it ships instantly on page load.
+- Bot messages are rendered via a small built-in markdown parser (`renderMarkdown` in `js/chatbot.js`). Supports `**bold**`, `*italic*`, `` `code` ``, fenced code blocks, bullet + numbered lists, and `[links](url)`. Input is HTML-escaped first, so untrusted output from DeepSeek can't inject tags.
+- User bubbles keep `white-space: pre-wrap` so multi-space / newlines survive; bot bubbles **must not** have pre-wrap — it preserves source-code indentation from the markdown HTML and creates huge blank gaps.
 
 ### Rate limiting — two layers
 - **Client** (`js/chatbot.js`): 3-second cooldown between sends, disables submit, shows hint.
@@ -65,7 +70,8 @@ Every content section uses `.section-grid` = `280px 1fr`. The **280px column wid
 ### Timeline
 - Lives **inside the Projects `section-head`** (not its own section), right under the "Projects" title, at `opacity: 0.45` — quiet context, not a focal element. Hovering or focusing bumps it to 0.95.
 - DOM order = visual top-to-bottom order. The seven stops are stacked **present → earliest** (Mars first, Donghua last). Positions are NOT proportional to time anymore — they're evenly distributed by flex gap.
-- Work stops (`.tl-stop-work`) render filled dots; education stops (`.tl-stop-edu`) render hollow dots. Both use `--ink-mute`.
+- Markers are **icons, not dots**: work stops render `#icon-wrench`, education stops render `#icon-book`. The two SVG symbols are defined once in a hidden `<svg>` sprite right after `<header>` in `index.html` and referenced via `<use href="#icon-…">` from each stop. When adding a new role, pick the matching symbol — don't reinvent. Icon chips have `background: var(--bg)` + `z-index: 1` so the axis line breaks cleanly behind them.
+- Each stop has four lines in `.tl-info`: `<strong>` company/school → `<span>` role/degree → `<em>` date → `<i class="tl-loc">` location. Adding a new stop means filling all four.
 - When adding a new role or degree, drop a new `<li class="tl-stop tl-stop-work|edu">` in the right chronological slot. No `--x`/`--y` percentages to maintain.
 
 ### Design tokens
@@ -107,8 +113,11 @@ Every non-trivial change on a feature branch gets a file in `docs/changelogs/<YY
 |---|---|
 | Headline / tagline / location | `index.html` hero section |
 | Add / edit a project card | `index.html` — `<article class="project-card">` block |
-| Timeline entry (role or degree) | `index.html` — `<li class="tl-stop …">` inside `.timeline-rail` |
+| Timeline entry (role or degree) | `index.html` — `<li class="tl-stop …">` inside `.timeline-rail`. Include wrench/book icon, strong/span/em/tl-loc lines |
+| New timeline icon type | Add a `<symbol id="icon-…">` to the sprite right after `<header>`, then reference from the stop |
 | Social links | `index.html` — `.connect-list` |
 | Chatbot knowledge | `worker/worker.js` — `SYSTEM_PROMPT` constant, then `wrangler deploy` |
+| Chatbot identity / tone | Same `SYSTEM_PROMPT` (currently "Pot 🫖"). Avatar emoji lives in `js/chatbot.js` `AVATAR`, static greeting in `index.html` chat section |
+| Rate limit thresholds | `worker/worker.js` — `RATE_LIMIT_MAX` / `RATE_LIMIT_WINDOW_MS`; client cooldown is `COOLDOWN_MS` in `js/chatbot.js` |
 | Worker model / CORS origins | `worker/wrangler.toml` `[vars]` |
 | Design tokens (colors, fonts) | `css/styles.css` `:root` block |
