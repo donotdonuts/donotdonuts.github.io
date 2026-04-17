@@ -4,5 +4,5 @@ window.SITE_CONFIG = {
   // Your Cloudflare Worker endpoint for the chatbot.
   // Leave empty ("") to disable the chatbot until the worker is deployed.
   // See worker/README.md for deployment instructions.
-  chatWorkerUrl: "",
+  chatWorkerUrl: "https://donotdonuts.workers.dev",
 };

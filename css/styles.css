@@ -250,6 +250,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
     box-shadow: 0 0 0 1px var(--ink);
     flex: 0 0 auto;
     position: relative;
+    z-index: 1; /* ride above the axis so the line doesn't bisect the dot */
   }
   .ct-track-work .ct-dot { margin-bottom: -5px; }
   .ct-track-edu  .ct-dot { margin-top: -5px; }
