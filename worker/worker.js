@@ -64,7 +64,13 @@ const MAX_MESSAGES = 20;
 const MAX_CONTENT_LEN = 2000;
 
 function cors(origin, allowed) {
-  const allow = allowed === "*" || allowed === origin ? origin || "*" : allowed;
+  const list = String(allowed || "*")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const wildcard = list.includes("*");
+  const match = origin && list.includes(origin);
+  const allow = wildcard ? origin || "*" : match ? origin : list[0] || "*";
   return {
     "Access-Control-Allow-Origin": allow,
     "Access-Control-Allow-Methods": "POST, OPTIONS",
