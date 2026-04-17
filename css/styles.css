@@ -431,8 +431,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   flex: 0 0 32px;
   width: 32px; height: 32px;
   border-radius: 50%;
-  background: var(--bg-hover);
-  border: 1px solid var(--border);
+  background: var(--ink);
   display: grid;
   place-items: center;
   margin-top: 2px;
@@ -449,9 +448,12 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   font-size: 13.5px;
   line-height: 1.55;
   color: var(--ink);
-  white-space: pre-wrap;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
+/* User messages preserve whatever formatting they typed (line breaks,
+   multiple spaces). Bot bubbles render structured markdown HTML so the
+   default whitespace collapsing is what we want. */
+.chat-msg-user .chat-bubble { white-space: pre-wrap; }
 .chat-bubble.typing { font-style: italic; color: var(--ink-mute); }
 
 /* Markdown rendering inside bot bubbles */
