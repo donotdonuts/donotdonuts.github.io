@@ -2,7 +2,8 @@
   "use strict";
 
   const cfg = window.SITE_CONFIG || {};
-  const AVATAR = "Leon";
+  const AVATAR = "🫖";
+  const AVATAR_LABEL = "Pot";
 
   const logEl = document.getElementById("chat-log");
   const formEl = document.getElementById("chat-form");
@@ -106,6 +107,7 @@
       const avatar = document.createElement("span");
       avatar.className = "chat-avatar";
       avatar.textContent = AVATAR;
+      avatar.setAttribute("aria-label", AVATAR_LABEL);
       msg.appendChild(avatar);
     }
     const bubble = document.createElement("div");

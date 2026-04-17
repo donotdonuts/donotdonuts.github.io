@@ -54,6 +54,27 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ---------- Scrollbars — themed to blend with the cream palette ---------- */
+/* Firefox */
+html { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+.chat-log { scrollbar-color: var(--border-strong) var(--bg-soft); }
+
+/* WebKit / Chromium */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+  border: 2px solid var(--bg);   /* fakes a smaller thumb on the cream page */
+}
+::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+::-webkit-scrollbar-corner { background: transparent; }
+
+/* Inside the chat log the track background is --bg-soft, so the thumb's
+   "padding" border needs to match that to keep the optical illusion. */
+.chat-log::-webkit-scrollbar-track { background: var(--bg-soft); }
+.chat-log::-webkit-scrollbar-thumb { border-color: var(--bg-soft); }
+
 a {
   color: var(--accent-ink);
   text-decoration: underline;
@@ -407,17 +428,17 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 }
 .chat-msg-user .chat-avatar { display: none; }
 .chat-avatar {
-  flex: 0 0 44px;
-  width: 44px; height: 24px;
-  border-radius: 4px;
-  background: var(--ink);
-  color: var(--bg);
-  font-size: 10px;
-  font-weight: 500;
+  flex: 0 0 32px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
   display: grid;
   place-items: center;
   margin-top: 2px;
-  letter-spacing: 0.04em;
+  font-size: 17px;
+  line-height: 1;
+  user-select: none;
 }
 .chat-bubble {
   max-width: 80%;
