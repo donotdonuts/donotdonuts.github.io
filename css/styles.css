@@ -261,6 +261,13 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   margin-top: 2px;
   letter-spacing: 0.02em;
 }
+.tl-info .tl-loc {
+  display: block;
+  font-style: normal;
+  font-size: 10.5px;
+  color: var(--ink-faint);
+  letter-spacing: 0.02em;
+}
 
 /* ---------- Buttons ---------- */
 .btn {
