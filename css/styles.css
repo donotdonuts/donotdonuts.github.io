@@ -225,22 +225,21 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   position: relative;
   padding-left: 18px;
 }
-.tl-dot {
+.tl-icon {
   position: absolute;
-  top: 5px;
-  left: -6px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--ink-mute);
-  border: 2px solid var(--bg);
-  box-shadow: 0 0 0 1px var(--ink-mute);
+  top: 2px;
+  left: -9px;
+  width: 14px;
+  height: 14px;
+  display: block;
+  color: var(--ink-mute);
+  background: var(--bg);   /* breaks the axis line behind the icon */
+  border-radius: 3px;
+  padding: 1px;
+  box-sizing: border-box;
   z-index: 1;
 }
-.tl-stop-edu .tl-dot {
-  background: var(--bg);
-  box-shadow: 0 0 0 1.3px var(--ink-mute);
-}
+.tl-icon-edu { color: var(--ink-soft); }
 .tl-info { font-size: 12.5px; line-height: 1.35; }
 .tl-info strong {
   display: block;
