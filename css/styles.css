@@ -368,6 +368,7 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
   gap: 14px;
+  align-items: start;  /* cards in a row size to their own content, so an expanded card doesn't force its neighbors to match */
 }
 .project-card {
   padding: 20px;
@@ -382,6 +383,15 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 .project-card:hover {
   border-color: var(--ink);
 }
+
+/* Folded by default: show only tag + title + tech tags.
+   Description and metrics appear on hover/focus. */
+.project-card > p,
+.project-card > .project-metrics { display: none; }
+.project-card:hover > p,
+.project-card:focus-within > p { display: block; }
+.project-card:hover > .project-metrics,
+.project-card:focus-within > .project-metrics { display: flex; }
 .project-head { display: flex; flex-direction: column; gap: 8px; }
 .project-tag {
   align-self: flex-start;
