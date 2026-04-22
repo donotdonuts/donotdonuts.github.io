@@ -11,8 +11,46 @@
   const hintEl = document.getElementById("chat-hint");
   const submitEl = formEl && formEl.querySelector("button[type=submit]");
   const suggestionButtons = document.querySelectorAll(".chat-suggestions .chip");
+  const launcherEl = document.getElementById("chat-launcher");
+  const panelEl = document.getElementById("chat-panel");
+  const closeEl = document.getElementById("chat-close");
+  const nudgeEl = document.getElementById("chat-nudge");
 
   if (!logEl || !formEl || !inputEl) return;
+
+  // ---- Floating panel: open / close ----
+  function openPanel() {
+    if (!panelEl || !launcherEl) return;
+    panelEl.hidden = false;
+    panelEl.setAttribute("aria-hidden", "false");
+    launcherEl.setAttribute("aria-expanded", "true");
+    launcherEl.classList.add("is-open");
+    if (nudgeEl) nudgeEl.hidden = true;
+    // Defer focus so the panel is rendered before we move focus into it.
+    requestAnimationFrame(() => {
+      if (!inputEl.disabled) inputEl.focus();
+      logEl.scrollTop = logEl.scrollHeight;
+    });
+  }
+  function closePanel() {
+    if (!panelEl || !launcherEl) return;
+    panelEl.hidden = true;
+    panelEl.setAttribute("aria-hidden", "true");
+    launcherEl.setAttribute("aria-expanded", "false");
+    launcherEl.classList.remove("is-open");
+    launcherEl.focus();
+  }
+  function togglePanel() {
+    if (!panelEl) return;
+    if (panelEl.hidden) openPanel();
+    else closePanel();
+  }
+
+  if (launcherEl) launcherEl.addEventListener("click", togglePanel);
+  if (closeEl) closeEl.addEventListener("click", closePanel);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && panelEl && !panelEl.hidden) closePanel();
+  });
 
   // Keep a rolling transcript for the worker.
   // The worker is responsible for prepending the system prompt.

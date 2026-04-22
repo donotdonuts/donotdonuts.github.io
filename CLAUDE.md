@@ -49,8 +49,21 @@ index.html  →  js/chatbot.js  →  fetch(SITE_CONFIG.chatWorkerUrl)
 
 The Worker's `SYSTEM_PROMPT` constant (top of `worker.js`) IS the knowledge base. Editing Leon's resume/bio = edit that string + `wrangler deploy`. No database, no KV. The system prompt also establishes the bot's identity as **"Pot" 🫖** — a tea-themed persona; keep that voice in any prompt tweaks.
 
+### Chatbot UI: floating launcher + panel
+The chatbot is **not** an inline page section — it's a floating widget that overlays every page. Three siblings live after `<footer>` in `index.html`:
+- `#chat-launcher` — fixed bottom-right circular button (56 px, ink background) showing the 🫖 avatar + a soft pulse ring. Always visible.
+- `#chat-panel` — fixed pop-out panel above the launcher (`width: min(494px, calc(100vw - 32px))`, `max-height: min(640px, calc(100vh - 120px))`), starts with the `hidden` attribute. Contains the panel header (avatar + "Pot" + "Ask anything about Leon" + `×` close) and the existing `#chat-widget` (log, form, hint, suggestion chips).
+- `#chat-nudge` — a black pill labeled **"Ask me about Leon →"** floating just left of the launcher with a triangular tail pointing at it; `pointer-events: none` so it never blocks the launcher click. It dismisses (sets `hidden`) the first time the panel opens and stays hidden for the rest of the page lifetime. CSS hides it entirely below 480 px.
+
+Open / close is wired in `js/chatbot.js`:
+- Click `#chat-launcher` toggles; click `#chat-close` or press `Escape` closes.
+- `openPanel()` removes `hidden`, sets `aria-expanded="true"` on the launcher, adds `.is-open` (suppresses the pulse), focuses `#chat-text` (unless disabled), and scrolls the log to the bottom inside `requestAnimationFrame`.
+- `closePanel()` re-adds `hidden`, restores `aria-expanded="false"`, returns focus to the launcher.
+
+Inside the panel, `.chat` is a flex column and `.chat-log` uses `flex: 1 1 auto` (no fixed `max-height`) so the message log fills whatever vertical space the panel has. The site `<nav>` only links Home / Projects / Connect — no "Ask" entry, since the launcher is always reachable.
+
 ### Chatbot rendering
-- Bot's avatar is the 🫖 emoji on a black `--ink` circle (`.chat-avatar`). Initial greeting is inline HTML (not a fetch) so it ships instantly on page load.
+- Bot's avatar is the 🫖 emoji on a black `--ink` circle (`.chat-avatar`). Initial greeting is inline HTML inside `#chat-panel` (not a fetch) so it ships instantly on page load.
 - Bot messages are rendered via a small built-in markdown parser (`renderMarkdown` in `js/chatbot.js`). Supports `**bold**`, `*italic*`, `` `code` ``, fenced code blocks, bullet + numbered lists, and `[links](url)`. Input is HTML-escaped first, so untrusted output from DeepSeek can't inject tags.
 - User bubbles keep `white-space: pre-wrap` so multi-space / newlines survive; bot bubbles **must not** have pre-wrap — it preserves source-code indentation from the markdown HTML and creates huge blank gaps.
 
@@ -142,7 +155,8 @@ Every non-trivial change on a feature branch gets a file in `docs/changelogs/<YY
 | New timeline icon type | Add a `<symbol id="icon-…">` to the sprite right after `<header>`, then reference from the stop. A matching `.tl-icon-<type>` CSS rule controls its ink color. |
 | Social links | `index.html` — `.connect-list` |
 | Chatbot knowledge | `worker/worker.js` — `SYSTEM_PROMPT` constant, then `wrangler deploy` |
-| Chatbot identity / tone | Same `SYSTEM_PROMPT` (currently "Pot 🫖"). Avatar emoji lives in `js/chatbot.js` `AVATAR`, static greeting in `index.html` chat section |
+| Chatbot identity / tone | Same `SYSTEM_PROMPT` (currently "Pot 🫖"). Avatar emoji lives in `js/chatbot.js` `AVATAR`; static greeting + suggestion chips live inside `#chat-panel` in `index.html` |
+| Chatbot launcher / nudge copy | `index.html` — `#chat-launcher` `aria-label`, `#chat-nudge` text. Sizing / positioning in `css/styles.css` (`.chat-launcher`, `.chat-panel`, `.chat-nudge`) |
 | Rate limit thresholds | `worker/worker.js` — `RATE_LIMIT_MAX` / `RATE_LIMIT_WINDOW_MS`; client cooldown is `COOLDOWN_MS` in `js/chatbot.js` |
 | Worker model / CORS origins | `worker/wrangler.toml` `[vars]` |
 | Design tokens (colors, fonts) | `css/styles.css` `:root` block |

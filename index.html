@@ -16,7 +16,6 @@
       <nav class="site-nav" aria-label="Primary">
         <a href="#top">Home</a>
         <a href="#projects">Projects</a>
-        <a href="#chat">Ask</a>
         <a href="#connect">Connect</a>
       </nav>
     </div>
@@ -460,65 +459,11 @@
 
     <hr class="section-divider" />
 
-    <!-- CHATBOT -->
-    <section id="chat" class="section">
-      <div class="container section-grid">
-        <div class="section-head">
-          <p class="section-kicker">02 · Talk to my pet bot Pot</p>
-          <h2 class="section-title">Ask about me</h2>
-        </div>
-        <div class="section-body">
-          <p class="lede">
-            Ask anything about my experience, projects, or skills, hobbies. Grounded in my resume. Please don't abuse it.
-          </p>
-
-          <div class="chat" id="chat-widget">
-            <div class="chat-log" id="chat-log" aria-live="polite">
-              <div class="chat-msg chat-msg-bot">
-                <span class="chat-avatar" aria-label="Pot">🫖</span>
-                <div class="chat-bubble">s
-                  <p>Hi, I'm <strong>Pot</strong> — Leon's AI, brewed from his resume + database.</p>
-                  <p>Ask me about:</p>
-                  <ul>
-                    <li>His work at <strong>Mars</strong>, <strong>Coach</strong>, or <strong>Chinatex</strong></li>
-                    <li>How he approaches <em>forecasting</em>, <em>optimization</em>, or <em>causal inference</em></li>
-                    <li>Projects, skills, education or hobbies like basketball</li>
-                  </ul>
-                  <p>What would you like to know?</p>
-                </div>
-              </div>
-            </div>
-            <form class="chat-input" id="chat-form" autocomplete="off">
-              <input
-                type="text"
-                id="chat-text"
-                name="chat-text"
-                placeholder="Ask a question…"
-                aria-label="Ask a question"
-                maxlength="500"
-                required
-              />
-              <button type="submit" class="btn btn-primary">Send</button>
-            </form>
-            <p class="chat-hint" id="chat-hint"></p>
-            <ul class="chat-suggestions">
-              <li><button type="button" class="chip" data-q="What did you ship at Mars?">What did you ship at Mars?</button></li>
-              <li><button type="button" class="chip" data-q="How do you approach demand forecasting?">How do you approach demand forecasting?</button></li>
-              <li><button type="button" class="chip" data-q="Tell me about your causal inference work.">Causal inference work</button></li>
-              <li><button type="button" class="chip" data-q="What's your strongest technical skill?">Strongest technical skill</button></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <hr class="section-divider" />
-
     <!-- CONNECT -->
     <section id="connect" class="section">
       <div class="container section-grid">
         <div class="section-head">
-          <p class="section-kicker">03 · Elsewhere</p>
+          <p class="section-kicker">02 · Elsewhere</p>
           <h2 class="section-title">Connect</h2>
         </div>
         <div class="section-body">
@@ -547,6 +492,77 @@
       <a href="#top" class="back-top">Back to top ↑</a>
     </div>
   </footer>
+
+  <!-- Floating chatbot: launcher + slide-out panel -->
+  <div id="chat-nudge" class="chat-nudge" aria-hidden="true">
+    <span class="chat-nudge-text">Ask me about Leon</span>
+    <span class="chat-nudge-arrow" aria-hidden="true">→</span>
+  </div>
+
+  <button
+    type="button"
+    id="chat-launcher"
+    class="chat-launcher"
+    aria-label="Talk to Pot, Leon's bot"
+    aria-expanded="false"
+    aria-controls="chat-panel"
+  >
+    <span class="chat-launcher-avatar" aria-hidden="true">🫖</span>
+    <span class="chat-launcher-pulse" aria-hidden="true"></span>
+  </button>
+
+  <aside
+    id="chat-panel"
+    class="chat-panel"
+    aria-label="Chat with Pot"
+    aria-hidden="true"
+    hidden
+  >
+    <header class="chat-panel-head">
+      <span class="chat-panel-avatar" aria-hidden="true">🫖</span>
+      <div class="chat-panel-titles">
+        <strong>Pot</strong>
+        <span>Ask anything about Leon</span>
+      </div>
+      <button type="button" id="chat-close" class="chat-close" aria-label="Close chat">×</button>
+    </header>
+
+    <div class="chat" id="chat-widget">
+      <div class="chat-log" id="chat-log" aria-live="polite">
+        <div class="chat-msg chat-msg-bot">
+          <span class="chat-avatar" aria-label="Pot">🫖</span>
+          <div class="chat-bubble">
+            <p>Hi, I'm <strong>Pot</strong> — Leon's AI, brewed from his resume + database.</p>
+            <p>Ask me about:</p>
+            <ul>
+              <li>His work at <strong>Mars</strong>, <strong>Coach</strong>, or <strong>Chinatex</strong></li>
+              <li>How he approaches <em>forecasting</em>, <em>optimization</em>, or <em>causal inference</em></li>
+              <li>Projects, skills, education or hobbies like basketball</li>
+            </ul>
+            <p>What would you like to know?</p>
+          </div>
+        </div>
+      </div>
+      <form class="chat-input" id="chat-form" autocomplete="off">
+        <input
+          type="text"
+          id="chat-text"
+          name="chat-text"
+          placeholder="Ask a question…"
+          aria-label="Ask a question"
+          maxlength="500"
+          required
+        />
+        <button type="submit" class="btn btn-primary">Send</button>
+      </form>
+      <p class="chat-hint" id="chat-hint"></p>
+      <ul class="chat-suggestions">
+        <li><button type="button" class="chip" data-q="What did you ship at Mars?">What did you ship at Mars?</button></li>
+        <li><button type="button" class="chip" data-q="How do you approach demand forecasting?">How do you approach demand forecasting?</button></li>
+        <li><button type="button" class="chip" data-q="What are Leon's hobbies?">What are Leon's hobbies?</button></li>
+      </ul>
+    </div>
+  </aside>
 
   <script src="js/config.js"></script>
   <script src="js/main.js"></script>

@@ -80,6 +80,11 @@ Hateful Memes Challenge 08/2023 -12/2023
 - Languages: Python, R, JavaScript, VBA.
 - Statistics: Hypothesis testing, experimental design, Bayesian analysis, causal inference.
 
+# Hobbies
+- Leon loves playing basketball, he has been playing since high school and enjoys the teamwork and strategy involved in the game. He is a three pointer specialist and often organizes pick-up games with friends on the weekends.
+- Leon loves hotpots, especially sichuan-style with numbing spices. He enjoys trying different broths and dipping sauces, and often hosts hotpot dinners for friends and family.
+
+
 # Style
 - Be concise. Prefer short paragraphs and, when it helps, bullet points.
 - Quote concrete numbers and stack details when relevant.
