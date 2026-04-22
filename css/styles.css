@@ -281,9 +281,9 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 .timeline-rail.is-filtering .tl-stop.is-active .tl-info strong { color: var(--ink); }
 .tl-stop { transition: opacity .15s ease; }
 
-/* Project cards fade when they don't match the active stop's experience. */
-.project-card { transition: opacity .2s ease, border-color .15s, box-shadow .15s; }
-.project-grid.is-filtering .project-card.is-dim { opacity: 0.18; }
+/* Project cards hide when they don't match the active stop's experience. */
+.project-card { transition: border-color .15s, box-shadow .15s; }
+.project-grid.is-filtering .project-card.is-dim { display: none; }
 
 /* ---------- Buttons ---------- */
 .btn {
