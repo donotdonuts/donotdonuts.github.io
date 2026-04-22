@@ -68,11 +68,35 @@ Every content section uses `.section-grid` = `280px 1fr`. The **280px column wid
 ```
 
 ### Timeline
-- Lives **inside the Projects `section-head`** (not its own section), right under the "Projects" title, at `opacity: 0.45` — quiet context, not a focal element. Hovering or focusing bumps it to 0.95.
-- DOM order = visual top-to-bottom order. The seven stops are stacked **present → earliest** (Mars first, Donghua last). Positions are NOT proportional to time anymore — they're evenly distributed by flex gap.
-- Markers are **icons, not dots**: work stops render `#icon-wrench`, education stops render `#icon-book`. The two SVG symbols are defined once in a hidden `<svg>` sprite right after `<header>` in `index.html` and referenced via `<use href="#icon-…">` from each stop. When adding a new role, pick the matching symbol — don't reinvent. Icon chips have `background: var(--bg)` + `z-index: 1` so the axis line breaks cleanly behind them.
+- Lives **inside the Projects `section-head`** (not its own section), right under the "Projects" title, at `opacity: 0.45` — quiet context, not a focal element. Hovering, focusing, or active filtering all bump it to 0.95.
+- DOM order = visual top-to-bottom order. Stops are stacked **present → earliest**. Order is not proportional to time — evenly distributed by flex gap. Mars sits on top, followed by Vibe Coding (the personal AI-assisted side-project category), then Georgia Tech, Coach, and so on down to Donghua.
+- Markers are **icons, not dots**. Three kinds:
+  - `#icon-wrench` — work stops (`.tl-stop-work`)
+  - `#icon-book` — education stops (`.tl-stop-edu`)
+  - `#icon-sparkle` — vibe / side-project stops (`.tl-stop-vibe`)
+  SVG symbols are defined once in a hidden `<svg>` sprite right after `<header>` in `index.html` and referenced via `<use href="#icon-…">` from each stop. When adding a new stop, pick an existing symbol — don't reinvent. Icon chips have `background: var(--bg)` + `z-index: 1` so the axis line breaks cleanly behind them.
 - Each stop has four lines in `.tl-info`: `<strong>` company/school → `<span>` role/degree → `<em>` date → `<i class="tl-loc">` location. Adding a new stop means filling all four.
-- When adding a new role or degree, drop a new `<li class="tl-stop tl-stop-work|edu">` in the right chronological slot. No `--x`/`--y` percentages to maintain.
+- Each stop also carries a `data-experience="<slug>"` attribute (e.g. `mars`, `vibe`, `coach`, `gatech`, `chinatex-sr`, `chinatex-am`, `ncstate`, `donghua`). This is what binds the stop to its project cards (see Project filter below).
+- When adding a stop that should be filter-interactive (i.e. has ≥1 tied card), include `tabindex="0"` on the `<li>` so keyboard focus can trigger the filter. Stops without projects omit `tabindex` and stay inert.
+- When adding a new role or degree, drop a new `<li class="tl-stop tl-stop-work|edu|vibe">` in the right chronological slot. No `--x`/`--y` percentages to maintain.
+
+### Project filter (click + hover)
+The project grid filters by experience, driven entirely by `js/main.js`.
+
+- Each `<article class="project-card">` has `data-experience="<slug>"` matching a timeline stop.
+- On load, `main.js` tags every stop whose slug is present in at least one card with `.tl-stop-has-projects`; only those stops get hover / click / focus handlers. Stops without tied projects (currently both Chinatex stops, NC State, Donghua) stay inert.
+- **Hover** an interactive stop → temp-filter. Non-matching cards drop out via `display: none` (the `.is-dim` class on cards inside `.project-grid.is-filtering`).
+- **Click** → lock. Stop gets `.is-locked`: full opacity, ink-colored icon, underlined company name. Click the same stop again to clear, or click another to switch the lock.
+- While locked, hovering a different stop previews its projects; `mouseleave` on the rail (or `focusout` out of it) snaps back to the locked view via `restoreLockedView()`.
+- Keyboard: stops with `tabindex="0"` are reachable via Tab; `Enter` / `Space` toggles the lock. `role="button"` + `aria-pressed` are set at runtime.
+- **To wire up a new experience:** add `data-experience="<slug>"` to both the stop and every tied `.project-card`, plus `tabindex="0"` on the stop. No other code changes needed — the JS auto-detects which stops to activate.
+
+### Project cards (folded by default)
+Each card renders collapsed: tag + `h3` + `.tag-list.small` only. The description `<p>` and `.project-metrics` row appear on `:hover` / `:focus-within`.
+
+- Pure CSS — `.project-card > p { display: none }` flips to `display: block` on hover; `.project-metrics` flips to `display: flex`.
+- `.project-grid` uses `align-items: start` so an expanded card doesn't force its row neighbors to grow taller.
+- The fold state composes cleanly with the filter: hidden (`.is-dim`) cards never expand because they're not in the layout.
 
 ### Design tokens
 All colors, fonts, and radii live as CSS custom properties in `:root` in `css/styles.css`. The palette was extracted from `stocktaper.com`'s compiled CSS:
@@ -112,9 +136,10 @@ Every non-trivial change on a feature branch gets a file in `docs/changelogs/<YY
 | Change | File(s) |
 |---|---|
 | Headline / tagline / location | `index.html` hero section |
-| Add / edit a project card | `index.html` — `<article class="project-card">` block |
-| Timeline entry (role or degree) | `index.html` — `<li class="tl-stop …">` inside `.timeline-rail`. Include wrench/book icon, strong/span/em/tl-loc lines |
-| New timeline icon type | Add a `<symbol id="icon-…">` to the sprite right after `<header>`, then reference from the stop |
+| Add / edit a project card | `index.html` — `<article class="project-card" data-experience="…">` block. Include the `data-experience` slug to wire the card into the timeline filter. |
+| Tie a project to a timeline stop | Set matching `data-experience="<slug>"` on the `<li class="tl-stop">` and every `<article class="project-card">` that belongs to it. Add `tabindex="0"` to the stop if it ends up with ≥1 card. |
+| Timeline entry (role, degree, or vibe side-project) | `index.html` — `<li class="tl-stop tl-stop-work\|edu\|vibe" data-experience="…">` inside `.timeline-rail`. Include wrench / book / sparkle icon, strong/span/em/tl-loc lines |
+| New timeline icon type | Add a `<symbol id="icon-…">` to the sprite right after `<header>`, then reference from the stop. A matching `.tl-icon-<type>` CSS rule controls its ink color. |
 | Social links | `index.html` — `.connect-list` |
 | Chatbot knowledge | `worker/worker.js` — `SYSTEM_PROMPT` constant, then `wrangler deploy` |
 | Chatbot identity / tone | Same `SYSTEM_PROMPT` (currently "Pot 🫖"). Avatar emoji lives in `js/chatbot.js` `AVATAR`, static greeting in `index.html` chat section |
