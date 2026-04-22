@@ -62,7 +62,7 @@
             <div class="tl-arrow" aria-hidden="true"></div>
             <div class="tl-axis" aria-hidden="true"></div>
             <ol class="tl-stops">
-              <li class="tl-stop tl-stop-work">
+              <li class="tl-stop tl-stop-work" data-experience="mars" tabindex="0">
                 <svg class="tl-icon tl-icon-work" aria-hidden="true"><use href="#icon-wrench"/></svg>
                 <div class="tl-info">
                   <strong>Mars Snacking</strong>
@@ -71,7 +71,7 @@
                   <i class="tl-loc">Newark, NJ</i>
                 </div>
               </li>
-              <li class="tl-stop tl-stop-edu">
+              <li class="tl-stop tl-stop-edu" data-experience="gatech" tabindex="0">
                 <svg class="tl-icon tl-icon-edu" aria-hidden="true"><use href="#icon-book"/></svg>
                 <div class="tl-info">
                   <strong>Georgia Tech</strong>
@@ -80,7 +80,7 @@
                   <i class="tl-loc">Remote</i>
                 </div>
               </li>
-              <li class="tl-stop tl-stop-work">
+              <li class="tl-stop tl-stop-work" data-experience="coach" tabindex="0">
                 <svg class="tl-icon tl-icon-work" aria-hidden="true"><use href="#icon-wrench"/></svg>
                 <div class="tl-info">
                   <strong>Coach</strong>
@@ -89,7 +89,7 @@
                   <i class="tl-loc">New York, NY</i>
                 </div>
               </li>
-              <li class="tl-stop tl-stop-work">
+              <li class="tl-stop tl-stop-work" data-experience="chinatex-sr">
                 <svg class="tl-icon tl-icon-work" aria-hidden="true"><use href="#icon-wrench"/></svg>
                 <div class="tl-info">
                   <strong>Chinatex</strong>
@@ -98,7 +98,7 @@
                   <i class="tl-loc">New York, NY</i>
                 </div>
               </li>
-              <li class="tl-stop tl-stop-work">
+              <li class="tl-stop tl-stop-work" data-experience="chinatex-am">
                 <svg class="tl-icon tl-icon-work" aria-hidden="true"><use href="#icon-wrench"/></svg>
                 <div class="tl-info">
                   <strong>Chinatex</strong>
@@ -107,7 +107,7 @@
                   <i class="tl-loc">New York, NY</i>
                 </div>
               </li>
-              <li class="tl-stop tl-stop-edu">
+              <li class="tl-stop tl-stop-edu" data-experience="ncstate">
                 <svg class="tl-icon tl-icon-edu" aria-hidden="true"><use href="#icon-book"/></svg>
                 <div class="tl-info">
                   <strong>NC State</strong>
@@ -116,7 +116,7 @@
                   <i class="tl-loc">Raleigh, NC</i>
                 </div>
               </li>
-              <li class="tl-stop tl-stop-edu">
+              <li class="tl-stop tl-stop-edu" data-experience="donghua">
                 <svg class="tl-icon tl-icon-edu" aria-hidden="true"><use href="#icon-book"/></svg>
                 <div class="tl-info">
                   <strong>Donghua University</strong>
@@ -131,7 +131,7 @@
         <div class="section-body">
           <div class="project-grid">
 
-            <article class="project-card">
+            <article class="project-card" data-experience="mars">
               <header class="project-head">
                 <span class="project-tag">Optimization</span>
                 <h3>Inventory Rebalancing MIP</h3>
@@ -150,7 +150,7 @@
               </ul>
             </article>
 
-            <article class="project-card">
+            <article class="project-card" data-experience="mars">
               <header class="project-head">
                 <span class="project-tag">Forecasting</span>
                 <h3>E-commerce Demand Forecast</h3>
@@ -168,7 +168,7 @@
               </ul>
             </article>
 
-            <article class="project-card">
+            <article class="project-card" data-experience="mars">
               <header class="project-head">
                 <span class="project-tag">AI · Agents</span>
                 <h3>Copilot Agentic Framework</h3>
@@ -186,7 +186,7 @@
               </ul>
             </article>
 
-            <article class="project-card">
+            <article class="project-card" data-experience="coach">
               <header class="project-head">
                 <span class="project-tag">NLP</span>
                 <h3>Product Embeddings for Pricing</h3>
@@ -204,7 +204,7 @@
               </ul>
             </article>
 
-            <article class="project-card">
+            <article class="project-card" data-experience="coach">
               <header class="project-head">
                 <span class="project-tag">MLOps</span>
                 <h3>Automated ML Pipelines</h3>
@@ -222,7 +222,7 @@
               </ul>
             </article>
 
-            <article class="project-card">
+            <article class="project-card" data-experience="mars">
               <header class="project-head">
                 <span class="project-tag">Causal Inference</span>
                 <h3>Impact Measurement Framework</h3>
@@ -237,6 +237,46 @@
               </dl>
               <ul class="tag-list small">
                 <li>Causal</li><li>Python</li><li>R</li><li>Statsmodels</li>
+              </ul>
+            </article>
+
+            <article class="project-card" data-experience="gatech">
+              <header class="project-head">
+                <span class="project-tag">Full Stack</span>
+                <h3>Personalized National Park Itinerary</h3>
+              </header>
+              <p>
+                Flask web app on Heroku that builds a tailored route across 63 US
+                national parks. A Python TSP solver returns itineraries in under
+                60 seconds, backed by an AWS RDS / SQLAlchemy schema and an ETL
+                pipeline fed by the Google Maps and NPS APIs.
+              </p>
+              <dl class="project-metrics">
+                <div><dt>Satisfaction</dt><dd class="up">9 / 10</dd></div>
+                <div><dt>Runtime</dt><dd>&lt; 60s</dd></div>
+              </dl>
+              <ul class="tag-list small">
+                <li>Python</li><li>Flask</li><li>TSP</li><li>AWS RDS</li><li>JavaScript</li>
+              </ul>
+            </article>
+
+            <article class="project-card" data-experience="gatech">
+              <header class="project-head">
+                <span class="project-tag">Multimodal</span>
+                <h3>Hateful Memes Classification</h3>
+              </header>
+              <p>
+                Multimodal classifier on the Hateful Memes benchmark using CLIP
+                encoders fused via self-attention, cross-fusion, and MLP heads in
+                PyTorch. Tuned learning rate, dropout, weight decay, and batch size
+                against the challenge baselines.
+              </p>
+              <dl class="project-metrics">
+                <div><dt>Accuracy</dt><dd class="up">+15%</dd></div>
+                <div><dt>AUROC</dt><dd class="up">+14%</dd></div>
+              </dl>
+              <ul class="tag-list small">
+                <li>CLIP</li><li>PyTorch</li><li>Attention</li><li>Multimodal</li>
               </ul>
             </article>
 

@@ -268,6 +268,23 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   letter-spacing: 0.02em;
 }
 
+/* Stops that have at least one tied project become interactive on hover/focus.
+   The JS layer adds .tl-stop-has-projects at startup. */
+.tl-stop-has-projects { cursor: pointer; }
+.tl-stop-has-projects:focus { outline: none; }
+.tl-stop-has-projects:focus-visible .tl-info strong { text-decoration: underline; }
+
+/* When any stop is being hovered/focused, other stops fade and the active
+   stop pops — the timeline rail's own :hover opacity bump already kicks in. */
+.timeline-rail.is-filtering .tl-stop:not(.is-active) { opacity: 0.45; }
+.timeline-rail.is-filtering .tl-stop.is-active .tl-icon { color: var(--ink); }
+.timeline-rail.is-filtering .tl-stop.is-active .tl-info strong { color: var(--ink); }
+.tl-stop { transition: opacity .15s ease; }
+
+/* Project cards fade when they don't match the active stop's experience. */
+.project-card { transition: opacity .2s ease, border-color .15s, box-shadow .15s; }
+.project-grid.is-filtering .project-card.is-dim { opacity: 0.18; }
+
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
