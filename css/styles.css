@@ -192,7 +192,8 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
   transition: opacity .2s ease;
 }
 .timeline-rail:hover,
-.timeline-rail:focus-within { opacity: 0.95; }
+.timeline-rail:focus-within,
+.timeline-rail.is-filtering { opacity: 0.95; }
 
 .tl-arrow {
   position: absolute;
@@ -277,10 +278,20 @@ a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 
 /* When any stop is being hovered/focused, other stops fade and the active
    stop pops — the timeline rail's own :hover opacity bump already kicks in. */
-.timeline-rail.is-filtering .tl-stop:not(.is-active) { opacity: 0.45; }
+.timeline-rail.is-filtering .tl-stop:not(.is-active):not(.is-locked) { opacity: 0.45; }
 .timeline-rail.is-filtering .tl-stop.is-active .tl-icon { color: var(--ink); }
 .timeline-rail.is-filtering .tl-stop.is-active .tl-info strong { color: var(--ink); }
 .tl-stop { transition: opacity .15s ease; }
+
+/* Locked stop keeps a persistent underline + full-opacity icon so it stays
+   legible even while the user is hovering a different stop to peek. */
+.tl-stop.is-locked { opacity: 1; }
+.tl-stop.is-locked .tl-icon { color: var(--ink); }
+.tl-stop.is-locked .tl-info strong {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+}
 
 /* Project cards hide when they don't match the active stop's experience. */
 .project-card { transition: border-color .15s, box-shadow .15s; }
