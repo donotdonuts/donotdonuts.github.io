@@ -31,6 +31,10 @@
       <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
       <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
     </symbol>
+    <symbol id="icon-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/>
+      <path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16z"/>
+    </symbol>
   </svg>
 
   <main id="top">
@@ -69,6 +73,15 @@
                   <span>Data Scientist</span>
                   <em>May 2024 — Present</em>
                   <i class="tl-loc">Newark, NJ</i>
+                </div>
+              </li>
+              <li class="tl-stop tl-stop-vibe" data-experience="vibe" tabindex="0">
+                <svg class="tl-icon tl-icon-vibe" aria-hidden="true"><use href="#icon-sparkle"/></svg>
+                <div class="tl-info">
+                  <strong>Vibe Coding</strong>
+                  <span>AI-Assisted Builder</span>
+                  <em>Nov 2025 — Present</em>
+                  <i class="tl-loc">Side projects</i>
                 </div>
               </li>
               <li class="tl-stop tl-stop-edu" data-experience="gatech" tabindex="0">
@@ -186,6 +199,108 @@
               </ul>
             </article>
 
+            <article class="project-card" data-experience="mars">
+              <header class="project-head">
+                <span class="project-tag">Causal Inference</span>
+                <h3>Impact Measurement Framework</h3>
+              </header>
+              <p>
+                Difference-in-differences and synthetic-control methods to measure the
+                incremental impact of optimization recommendations on service levels.
+              </p>
+              <dl class="project-metrics">
+                <div><dt>Methods</dt><dd>DiD · SCM</dd></div>
+                <div><dt>Audience</dt><dd>Leadership</dd></div>
+              </dl>
+              <ul class="tag-list small">
+                <li>Causal</li><li>Python</li><li>R</li><li>Statsmodels</li>
+              </ul>
+            </article>
+
+            <article class="project-card" data-experience="vibe">
+              <header class="project-head">
+                <span class="project-tag">AI · Full Stack</span>
+                <h3>Coffeed News — AI News Aggregator</h3>
+              </header>
+              <p>
+                Topic-driven personalized news digest. Scrapes RSS, Reddit, X,
+                and podcasts, ranks via a four-pillar INRF formula
+                (insight + relevance + niche) over pgvector embeddings, then
+                synthesizes emails with a DeepSeek → OpenAI → Gemini → Grok
+                LLM cascade. Next.js + FastAPI + Celery on Railway.
+              </p>
+              <dl class="project-metrics">
+                <div><dt>Stack</dt><dd>Next.js · FastAPI · Celery</dd></div>
+                <div><dt>Pipeline</dt><dd>4 stages, 4×/day</dd></div>
+              </dl>
+              <ul class="tag-list small">
+                <li>Next.js</li><li>FastAPI</li><li>Supabase</li><li>pgvector</li><li>Celery</li><li>LLM</li>
+              </ul>
+            </article>
+
+            <article class="project-card" data-experience="vibe">
+              <header class="project-head">
+                <span class="project-tag">AI · Trading</span>
+                <h3>AutoWallStreet — Bot Trading Arena</h3>
+              </header>
+              <p>
+                AI bot trading arena where autonomous bots compete with $100K
+                paper money on real US stocks (15-min delayed). Three FastAPI
+                microservices on Railway share a Supabase Postgres, a polling
+                order engine handles fills / margin / dividends / splits, and
+                a React SPA on Vercel streams live prices over WebSocket.
+              </p>
+              <dl class="project-metrics">
+                <div><dt>Services</dt><dd>3 microservices</dd></div>
+                <div><dt>Seasons</dt><dd>2-month leagues</dd></div>
+              </dl>
+              <ul class="tag-list small">
+                <li>FastAPI</li><li>React</li><li>Supabase</li><li>Railway</li><li>WebSocket</li><li>X OAuth</li>
+              </ul>
+            </article>
+
+            <article class="project-card" data-experience="vibe">
+              <header class="project-head">
+                <span class="project-tag">iOS · Speech</span>
+                <h3>Molly Talk — Live Caption & Translate</h3>
+              </header>
+              <p>
+                Native iOS app (Swift + SwiftUI, MVVM) for real-time speech
+                transcription, translation, and language-learning coaching.
+                Uses the native Speech framework for continuous recognition
+                and Google Gemini 2.0 Flash for on-the-fly translation and
+                vocabulary extraction. Firebase Auth + Firestore history.
+              </p>
+              <dl class="project-metrics">
+                <div><dt>Languages</dt><dd>10 supported</dd></div>
+                <div><dt>Latency</dt><dd>Live captions</dd></div>
+              </dl>
+              <ul class="tag-list small">
+                <li>Swift</li><li>SwiftUI</li><li>Speech</li><li>Gemini</li><li>Firebase</li>
+              </ul>
+            </article>
+
+            <article class="project-card" data-experience="vibe">
+              <header class="project-head">
+                <span class="project-tag">Generative · Vision</span>
+                <h3>Virtual Try-On Pipeline</h3>
+              </header>
+              <p>
+                Two-stage virtual try-on: Google Vertex AI's try-on model
+                generates the composite, then Gemini restores face, body, and
+                garment detail before a 2K upscale. React + Vite frontend on
+                Vercel, FastAPI backend on Railway, Supabase for auth,
+                storage, and batch history.
+              </p>
+              <dl class="project-metrics">
+                <div><dt>Stages</dt><dd>Gen → Restore → 2K</dd></div>
+                <div><dt>Mode</dt><dd>N × M batch</dd></div>
+              </dl>
+              <ul class="tag-list small">
+                <li>Vertex AI</li><li>Gemini</li><li>FastAPI</li><li>React</li><li>Supabase</li>
+              </ul>
+            </article>
+
             <article class="project-card" data-experience="coach">
               <header class="project-head">
                 <span class="project-tag">NLP</span>
@@ -222,21 +337,60 @@
               </ul>
             </article>
 
-            <article class="project-card" data-experience="mars">
+            <article class="project-card" data-experience="chinatex-sr">
               <header class="project-head">
-                <span class="project-tag">Causal Inference</span>
-                <h3>Impact Measurement Framework</h3>
+                <span class="project-tag">Forecasting</span>
+                <h3>ARIMAX Demand Forecasting</h3>
               </header>
               <p>
-                Difference-in-differences and synthetic-control methods to measure the
-                incremental impact of optimization recommendations on service levels.
+                Built ARIMAX time-series models in R and Python to forecast
+                demand across Chinatex's textile accounts, incorporating
+                exogenous drivers (promotions, seasonality, price).
               </p>
               <dl class="project-metrics">
-                <div><dt>Methods</dt><dd>DiD · SCM</dd></div>
-                <div><dt>Audience</dt><dd>Leadership</dd></div>
+                <div><dt>Accuracy</dt><dd class="up">+25%</dd></div>
+                <div><dt>Stack</dt><dd>R · Python</dd></div>
               </dl>
               <ul class="tag-list small">
-                <li>Causal</li><li>Python</li><li>R</li><li>Statsmodels</li>
+                <li>ARIMAX</li><li>R</li><li>Python</li><li>Time Series</li>
+              </ul>
+            </article>
+
+            <article class="project-card" data-experience="chinatex-sr">
+              <header class="project-head">
+                <span class="project-tag">Supply Chain</span>
+                <h3>Dynamic Safety-Stock Framework</h3>
+              </header>
+              <p>
+                Inventory management framework with dynamic safety-stock
+                targets reacting to forecast error and lead-time variance —
+                held the in-stock rate at 95% across the account portfolio.
+              </p>
+              <dl class="project-metrics">
+                <div><dt>In-stock</dt><dd class="up">95%</dd></div>
+                <div><dt>Scope</dt><dd>Account portfolio</dd></div>
+              </dl>
+              <ul class="tag-list small">
+                <li>Safety Stock</li><li>Inventory</li><li>Python</li><li>SQL</li>
+              </ul>
+            </article>
+
+            <article class="project-card" data-experience="chinatex-sr">
+              <header class="project-head">
+                <span class="project-tag">Data Eng · BI</span>
+                <h3>Automated ETL + Tableau Reporting</h3>
+              </header>
+              <p>
+                Designed and automated ETL pipelines and Tableau dashboards
+                for daily performance reporting, replacing manual Excel
+                workflows and giving the commercial team same-day visibility.
+              </p>
+              <dl class="project-metrics">
+                <div><dt>Cadence</dt><dd>Daily</dd></div>
+                <div><dt>Audience</dt><dd>Commercial team</dd></div>
+              </dl>
+              <ul class="tag-list small">
+                <li>ETL</li><li>SQL</li><li>Tableau</li><li>Python</li>
               </ul>
             </article>
 
