@@ -6,3 +6,4 @@ node_modules/
 
 # Source portrait — only the resized web copy in assets/ is committed
 /raw.jpg
+.worktrees
